@@ -1,0 +1,39 @@
+<form class="container">
+    <div class="title">
+      <h1>File Upload</h1>
+      <div class="warning">
+        <h5>FileType: "Image/Video"</h5>
+        <h5>MaxFileSize: "10MB"</h5>
+      </div>
+    </div>
+
+    <div class="user">
+        <mat-form-field class="example-full-width">
+            <input matInput placeholder="UserName" #username [formControl]="emailFormControl">
+            <mat-error *ngIf="emailFormControl.hasError('required')">
+              UserName is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+    </div>
+
+    <div class="choose-file">
+      <input #file
+        type="file" accept="all"
+        style="display: none" (change)="onSelectFile(file)"/>
+      <button mat-raised-button color="primary" (click)="file.click()">Choose File</button>
+      <button mat-fab  [disabled]="!isValid || !username.value" (click)="onUpload(username.value)">
+        <mat-icon>publish</mat-icon>
+      </button>
+    </div>
+
+    <div *ngIf="chosen_file" class="preview">
+      <p [className]="isValid ? 'valid' : 'invalid'">{{message}}</p>
+      <p>FileName : {{ chosen_file.name }}</p>
+      <p>FileType : {{ chosen_file.type }}</p>
+      <p>FileSize : {{ chosen_file.size/1024/1024 | number:'1.1-2'}}MB</p>
+      <img *ngIf="chosen_file.type.match('image')" src={{preview_data}}>
+      <video *ngIf="chosen_file.type.match('video')" width="320" controls src={{preview_data}}>
+        Error.
+      </video>
+    </div>
+  </form>
