@@ -1,4 +1,4 @@
-Written by GuangLie.
+
 
 I created a new project using Angular7 Web Application(.NET Core2.2) Template in Visual Studio 2019.
 
